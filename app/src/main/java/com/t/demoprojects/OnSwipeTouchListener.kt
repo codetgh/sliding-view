@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatTextView
+import kotlin.math.abs
 
 class OnSwipeTouchListener (ctx: Context) : View.OnTouchListener {
 
@@ -22,10 +23,10 @@ class OnSwipeTouchListener (ctx: Context) : View.OnTouchListener {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent?): Boolean {
-        when (v) {
+        /*when (v) {
             is LinearLayout -> isViewGroup = true
-            is AppCompatTextView -> isViewGroup = true
-        }
+            is AppCompatTextView -> isViewGroup = false
+        }*/
         return gestureDetector.onTouchEvent(event)
     }
 
@@ -34,7 +35,7 @@ class OnSwipeTouchListener (ctx: Context) : View.OnTouchListener {
         private val SWIPE_VELOCITY_THRESHOLD = 100
 
         override fun onDown(e: MotionEvent): Boolean {
-            return isViewGroup
+            return true
         }
 
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float,
@@ -43,7 +44,7 @@ class OnSwipeTouchListener (ctx: Context) : View.OnTouchListener {
             try {
                 val diffY = e2.y - e1.y
                 val diffX = e1.x - e2.x
-                if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (Math.abs(diffX) > abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
                             onSwipeRight()

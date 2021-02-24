@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/parentLl">
 
 
     <!--<androidx.recyclerview.widget.RecyclerView
@@ -15,14 +16,34 @@
         tools:listitem="@layout/item_card"
         tools:itemCount="5"
         android:layout_marginRight="5dp"/>-->
+    <TextView
+        android:id="@+id/questionTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Do you want to die?"
+        android:padding="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/optionRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_options"
+        android:padding="5dp"
+        android:visibility="gone"/>
     <LinearLayout
         android:id="@+id/llPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".9"
         android:orientation="vertical"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:visibility="visible"/>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

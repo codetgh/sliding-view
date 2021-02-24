@@ -1,5 +1,6 @@
 package com.t.demoprojects
 
+import android.annotation.SuppressLint
 import android.text.TextUtils
 import android.view.ContextMenu
 import android.view.LayoutInflater
@@ -8,18 +9,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_options.view.*
 
 class ChildOptionAdapter(private val questionModel:QuestionModel) :
     RecyclerView.Adapter<ChildOptionAdapter.ViewHolder>() {
-    private val children: List<String> = questionModel.option
-    private var onEventChildAdapterViewClick: AdapterGenericItemClick<String>? = null
+    private val children: List<OptionModel> = questionModel.option
+    private var onEventChildAdapterViewClick: AdapterGenericItemClick<OptionModel>? = null
 
-    fun setEventChildAdapterViewClick(onEventChildAdapterViewClick:  AdapterGenericItemClick<String>) {
+    fun setEventChildAdapterViewClick(onEventChildAdapterViewClick:
+                                      AdapterGenericItemClick<OptionModel>) {
         this.onEventChildAdapterViewClick = onEventChildAdapterViewClick
     }
 
-    fun getAdapterList(): List<String> {
+    fun getAdapterList(): List<OptionModel> {
         return children
     }
 
@@ -37,15 +40,22 @@ class ChildOptionAdapter(private val questionModel:QuestionModel) :
         return children.size
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int
     ) {
         val child = children[position]
 
-        holder.textView.text = child
+        holder.textView.text = child.option
 
-        if(!TextUtils.isEmpty(questionModel.answer) && questionModel.answer?.toLowerCase() == child.toLowerCase()){
+        if(child.optionLevel == 1){
+            holder.textView.setPadding(20, 0, 0, 0)
+        }else if(child.optionLevel == 2){
+            holder.textView.setPadding(40, 0, 0, 0)
+        }
+        if(!TextUtils.isEmpty(questionModel.answer)
+            && questionModel.answer?.toLowerCase() == child.option.toLowerCase()){
             holder.textView.setTextColor(ContextCompat.getColor(holder.textView.context, R.color.colorPrimary))
         }else{holder.textView.setTextColor(ContextCompat.getColor(holder.textView.context, android.R.color.black))
 
